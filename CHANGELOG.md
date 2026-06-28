@@ -3,7 +3,7 @@
 All notable changes to this mod are documented here. The publish pipeline
 reads the topmost `## [x.y.z]` entry as the version to publish.
 
-## [0.9.0] - 2026-06-28
+## [1.0.0] - 2026-06-28
 
 ### Added
 - Reduce the material cost of crafting keys at database bake time. Default:
