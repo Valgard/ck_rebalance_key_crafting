@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d83df2ae64ce1e94f9c006b9d326bf02, type: 3}
   m_Name: RebalanceKeyCrafting_modio
   m_EditorClassIdentifier: 
-  modId: 0
+  modId: 6173785
   modSettings: {fileID: 11400000, guid: 84df4073747747d1a35476e3622428ca, type: 2}
   logo: {fileID: 0}
   summary: 
