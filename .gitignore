@@ -1,2 +1,5 @@
 .DS_Store
 .worktrees/
+
+# Superpowers plan/brainstorm scratch — never committed (specs in docs/specs/ stay tracked)
+docs/superpowers/
