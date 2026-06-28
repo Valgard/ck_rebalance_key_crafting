@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# Rebalance Key Crafting — environment variables (TEMPLATE)
+#
+# Copy this file to `.envrc` (gitignored). Machine-level shared values
+# (UNITY_BIN, SDK_PATH, CK_GAME_VERSION, MOD_INSTALL_BASE_PATH, MODIO_DEPS_MAP,
+# LOC_TABLE, the ilspycmd PATH entry) are inherited from the parent
+# core_keeper/.envrc — define them once there (copy core_keeper/.envrc.example
+# → core_keeper/.envrc), not here.
+#
+#   cp .envrc.example .envrc
+#   direnv allow                     # then `cd` triggers the chain
+#   # or, without direnv:  source .envrc && ../utils/build.sh
+#
+# Under direnv, source_up_if_exists pulls the parent in on `cd`; a manual
+# `source .envrc` uses the `source ../.envrc` fallback.
+
+# --- Inherit shared values from the parent core_keeper/.envrc ---------------
+if command -v source_up_if_exists >/dev/null 2>&1; then
+    source_up_if_exists          # direnv: walk up to core_keeper/.envrc
+elif [ -f ../.envrc ]; then
+    source ../.envrc             # manual `source .envrc` fallback
+fi
+
+# --- Mod identity (project-inherent — leave as-is) --------------------------
+
+# PascalCase name — drives SDK symlink paths and the build entry point.
+export MOD_NAME="RebalanceKeyCrafting"
+
+# kebab-case id, written as `name_id` in the fake mod.io state.json.
+export MOD_NAME_ID="rebalance-key-crafting"
+
+# One-line summary, written into state.json by utils/install-macos.sh.
+export MOD_SUMMARY="Reduces the material cost of crafting keys. Defaults to the seven tier chest keys (Copper..Relucite) at 25% of vanilla cost; switchable to all craftable keys."
+
+# Fake mod.io ID — must be DISTINCT per mod (siblings use 9999993–9999999).
+export FAKE_MOD_ID="9999992"
+
+# ModBuilder output staging dir (build.sh → install-macos.sh copies onward).
+export MOD_INSTALL_PATH="$MOD_INSTALL_BASE_PATH/$MOD_NAME_ID-build"
+
+# Repo root, read by the shared CLIPublishHelper to locate CHANGELOG.md.
+export MOD_REPO_ROOT="$PWD"
