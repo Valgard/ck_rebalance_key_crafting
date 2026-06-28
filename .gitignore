@@ -1,5 +1,43 @@
+# macOS
 .DS_Store
+
+# Worktrees
 .worktrees/
 
 # Superpowers plan/brainstorm scratch — never committed (specs in docs/specs/ stay tracked)
 docs/superpowers/
+
+# Editors / IDEs
+.idea/
+.vscode/
+*.swp
+
+# Build artifacts
+bin/
+obj/
+build/
+*.dll
+*.pdb
+
+# Unity generated dirs (if ever present locally)
+Library/
+Temp/
+Logs/
+UserSettings/
+*.csproj
+*.sln
+
+# Env / secrets
+.env
+.envrc
+.envrc.local
+
+# Shared editor helpers — symlinked in by utils/link.sh (the .cs are symlinks
+# into ../utils, the .meta are Unity-generated locally; no asset references
+# them by GUID, so neither belongs in the repo).
+unity/RebalanceKeyCrafting/Editor/CLIBuildHelper.cs
+unity/RebalanceKeyCrafting/Editor/CLIBuildHelper.cs.meta
+unity/RebalanceKeyCrafting/Editor/CLIPublishHelper.cs
+unity/RebalanceKeyCrafting/Editor/CLIPublishHelper.cs.meta
+unity/RebalanceKeyCrafting/Editor/LocalizationGenerator.cs
+unity/RebalanceKeyCrafting/Editor/LocalizationGenerator.cs.meta
