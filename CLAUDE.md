@@ -9,7 +9,8 @@ A Core Keeper mod that **reduces the material cost of crafting keys** by
 rewriting their recipe ingredient amounts at database bake time. By default it
 affects the seven tier chest keys (`CopperKey`..`ReluciteKey`) at 25% of
 vanilla cost (floor 1 per ingredient). One Harmony prefix against Pugstorm's
-`CoreKeeperModSDK`. No content of its own, no CoreLib dependency. Personal-use,
+`CoreKeeperModSDK`. No content of its own; hard-depends on CoreLib + Mod Settings
+Menu, which drive the four knobs as live in-game settings. Personal-use,
 non-commercial (Pugstorm EULA).
 
 The parent `../CLAUDE.md` holds the mod-agnostic SDK/CrossOver guidance shared
@@ -46,8 +47,10 @@ world and confirm the cost does not drop further (idempotency).
 Three runtime classes in the `RebalanceKeyCrafting` namespace, plus the shared
 editor helpers symlinked in from `../utils/`:
 
-- **`RebalanceKeyCraftingMod` (`IMod`)** — bootstrap; logs the resolved config
-  in `Init()`. **No `BurstDisabler`** — the patch target is managed.
+- **`RebalanceKeyCraftingMod` (`IMod`)** — bootstrap. `Init()` registers the Mod
+  Settings Menu section (Toggle `enabled`, Choice `reductionFactor`
+  {OneIngot/Quarter/Half/Vanilla}, Choice `scope`), binds the handles into `ModConfig`,
+  and logs the resolved config. **No `BurstDisabler`** — the patch target is managed.
 - **`KeyRecipeCostPatch` (`[HarmonyPatch]`)** — a `Prefix` on
   `PugDatabasePostConverter.PostConvert`. Walks the prefab list
   (`DatabaseConversionUtility.GetPrefabList`), selects target keys, and scales
@@ -55,11 +58,21 @@ editor helpers symlinked in from `../utils/`:
   (`max(minPerIngredient, round(amount * factor, AwayFromZero))`) **before**
   vanilla bakes the recipe into the immutable runtime blob. Always returns
   `true` (lets vanilla run).
-- **`ModConfig`** — hardcoded singleton: `enabled`, `reductionFactor` (0.25),
-  `minPerIngredient` (1), `scope` (`TierKeysOnly` / `AllCraftableKeys`), and
-  the 7 `tierKeyIds`. No runtime config file — the RoslynCSharp sandbox blocks
-  `System.IO`. The singleton shape is preserved so a future sandbox-safe loader
-  (`API.ConfigFilesystem`) could drop in without touching the patch.
+- **`ModConfig`** — the settings adapter. `enabled` (Toggle, default on),
+  `reductionFactor` (Choice of a `Reduction` enum: `OneIngot` → factor 0, `Quarter`
+  → 0.25 [default], `Half` → 0.5, `Vanilla` → 1) and `scope` (Choice
+  `TierKeysOnly` / `AllCraftableKeys`) read from bound `SettingHandle`s
+  (`ModConfig.Bind`); the getters are source-compatible with the former fields, so
+  `KeyRecipeCostPatch` reads `ModConfig.Instance.*` unchanged. `minPerIngredient` is
+  **no longer a menu setting** — it is hardcoded to `1` (the floor that makes the
+  `OneIngot` choice resolve to exactly 1 per ingredient, not 0/free). `tierKeyIds`
+  (the 7 tier keys) stays a hardcoded data list. The framework persists the values (via CoreLib) to
+  `mods/RebalanceKeyCrafting/config.cfg`; the mod's own code still touches no
+  `System.IO`. **Bake-time caveat:** the recipe rewrite runs once per world in
+  `PostConvert` and is idempotent, so the getters feed the *next* bake — a setting
+  change takes effect on the **next game restart**, not mid-session (the section
+  hint says so). Labels/hint/option strings live in `localization/localization.yaml`
+  (EN/DE), generated into TextDataBlock assets at build.
 
 ### Why bake-time recipe rewrite
 

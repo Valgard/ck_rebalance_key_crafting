@@ -1,0 +1,46 @@
+# RebalanceKeyCrafting localisation source. Parsed at build by utils/LocalizationGenerator.cs into
+# native Core Keeper TextDataBlock assets under unity/RebalanceKeyCrafting/Localization/Generated/.
+#
+# ASCII rule (enforced by the generator): no U+2026 ellipsis and no U+2014 em-dash; German umlauts
+# (written as the real umlaut chars) are fine.
+#
+# Term convention. The game's loc bridge (ScriptableData) keys every TextDataBlock by
+# `header + "/" + name`, so the loc term is EXACTLY the YAML `<namespace>/<leaf>`. Mod Settings Menu
+# looks up:
+#   - each SETTING label by   <ModId>-Config/<key>     -> RebalanceKeyCrafting-Config/enabled, .../scope, ...
+#   - the section HINT by      <ModId>-Config/_hint
+#   - each CHOICE OPTION by    <SettingTerm>/<token>    -> RebalanceKeyCrafting-Config/scope/<enum-name>
+# Because the term is header/name and a leaf becomes an asset FILENAME, the option tokens live as
+# slash-free leaves under their own header "RebalanceKeyCrafting-Config/scope": header + "/" +
+# "TierKeysOnly" reproduces the exact term the widget resolves (the enum value's ToString()), with a
+# clean filename. Slider/Stepper values render numerically, so only the Choice needs option terms.
+
+RebalanceKeyCrafting-Config:
+  _hint:
+    hint: "Section hint shown under the Rebalance Key Crafting heading. Notes the bake-time restart caveat."
+    en: "Cheaper key crafting - how cheap, and which keys. Changes apply on restart."
+    de: "Günstigeres Schlüssel-Crafting - wie günstig, und welche Schlüssel. Änderungen greifen nach einem Neustart."
+  enabled:
+    hint: "Master on/off toggle label."
+    en: "Enabled"
+    de: "Aktiviert"
+  reductionFactor:
+    hint: "Choice label - the discrete crafting-cost setting."
+    en: "Crafting cost"
+    de: "Crafting-Kosten"
+  scope:
+    hint: "Choice label - which keys the reduction applies to."
+    en: "Affected keys"
+    de: "Betroffene Schlüssel"
+
+# Choice option labels for reductionFactor. Leaf = the enum token (Reduction.<name>.ToString()).
+RebalanceKeyCrafting-Config/reductionFactor:
+  OneIngot: { en: "1 ingot", de: "1 Barren" }
+  Quarter: { en: "1/4",   de: "1/4" }
+  Half:    { en: "1/2",   de: "1/2" }
+  Vanilla: { en: "Vanilla", de: "Vanilla" }
+
+# Choice option labels for scope. Leaf = the enum token the Choice widget stores (value.ToString()).
+RebalanceKeyCrafting-Config/scope:
+  TierKeysOnly: { en: "Tier keys only", de: "Nur Stufenschlüssel" }
+  AllCraftableKeys: { en: "All craftable keys", de: "Alle craftbaren Schlüssel" }
