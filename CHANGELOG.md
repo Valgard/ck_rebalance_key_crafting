@@ -3,6 +3,14 @@
 All notable changes to this mod are documented here. The publish pipeline
 reads the topmost `## [x.y.z]` entry as the version to publish.
 
+## [1.1.0]
+
+- **In-game settings** under Options -> Mod Settings (via the Mod Settings Menu
+  framework): choose the crafting cost (1 ingot / 1/4 / 1/2 / vanilla), which keys
+  are affected (tier keys or all craftable keys), and toggle the mod. Changes apply
+  on the next game restart - the menu offers to restart for you.
+- Now requires the **Mod Settings Menu** mod and CoreLib.
+
 ## [1.0.0] - 2026-06-28
 
 ### Added
