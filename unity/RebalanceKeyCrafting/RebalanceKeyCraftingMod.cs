@@ -20,15 +20,17 @@ namespace RebalanceKeyCrafting
             // Register the key-crafting settings; ModConfig reads these live handles (the next bake
             // uses the current values — see the bake-time note in ModConfig). Section uses the default
             // AsDeclared sort, so builder-call order IS render order: enabled, cost, scope.
+            // Every knob here is bake-time (idempotent PostConvert), so each is marked RequiresRestart:
+            // changing one and leaving the Mod Settings menu raises CK's "restart to apply" prompt.
             ModSettings.Section(this)
                 .Hint("Cheaper key crafting - how cheap, and which keys. Changes apply on restart.")
-                .Toggle(out var en, "enabled", true)
+                .Toggle(out var en, "enabled", true).RequiresRestart()
                 .Choice(out var reduction, "reductionFactor",
                     new[] { ModConfig.Reduction.OneIngot, ModConfig.Reduction.Quarter, ModConfig.Reduction.Half, ModConfig.Reduction.Vanilla },
-                    ModConfig.Reduction.Quarter)
+                    ModConfig.Reduction.Quarter).RequiresRestart()
                 .Choice(out var scope, "scope",
                     new[] { ModConfig.Scope.TierKeysOnly, ModConfig.Scope.AllCraftableKeys },
-                    ModConfig.Scope.TierKeysOnly)
+                    ModConfig.Scope.TierKeysOnly).RequiresRestart()
                 .Build();
 
             var c = ModConfig.Instance;
