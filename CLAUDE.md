@@ -47,10 +47,14 @@ world and confirm the cost does not drop further (idempotency).
 Three runtime classes in the `RebalanceKeyCrafting` namespace, plus the shared
 editor helpers symlinked in from `../utils/`:
 
-- **`RebalanceKeyCraftingMod` (`IMod`)** — bootstrap. `Init()` registers the Mod
+- **`RebalanceKeyCraftingMod` (`IMod`)** — bootstrap. `EarlyInit()` registers the Mod
   Settings Menu section (Toggle `enabled`, Choice `reductionFactor`
   {OneIngot/Quarter/Half/Vanilla}, Choice `scope`), binds the handles into `ModConfig`,
-  and logs the resolved config. **No `BurstDisabler`** — the patch target is managed.
+  and logs the resolved config. Binding is in `EarlyInit`, **not `Init`**, because Core
+  Keeper runs the database bake (`PugDatabasePostConverter.PostConvert`) *after* `EarlyInit`
+  but *before* `Init` — binding in `Init` lets the bake read the handles before they exist,
+  falling back to the hardcoded defaults (the original bug: cost stuck at the `Quarter`
+  default, `enabled` off ignored). **No `BurstDisabler`** — the patch target is managed.
 - **`KeyRecipeCostPatch` (`[HarmonyPatch]`)** — a `Prefix` on
   `PugDatabasePostConverter.PostConvert`. Walks the prefab list
   (`DatabaseConversionUtility.GetPrefabList`), selects target keys, and scales
@@ -69,9 +73,10 @@ editor helpers symlinked in from `../utils/`:
   (the 7 tier keys) stays a hardcoded data list. The framework persists the values (via CoreLib) to
   `mods/RebalanceKeyCrafting/config.cfg`; the mod's own code still touches no
   `System.IO`. **Bake-time caveat:** the recipe rewrite runs once per world in
-  `PostConvert` and is idempotent, so the getters feed the *next* bake — a setting
-  change takes effect on the **next game restart**, not mid-session (the section
-  hint says so). Labels/hint/option strings live in `localization/localization.yaml`
+  `PostConvert` (which fires after `EarlyInit`, before `Init` — hence the `EarlyInit`
+  binding above) and is idempotent, so the getters feed that bake — a setting change
+  takes effect on the **next game restart**, not mid-session (the section hint says
+  so). Labels/hint/option strings live in `localization/localization.yaml`
   (EN/DE), generated into TextDataBlock assets at build.
 
 ### Why bake-time recipe rewrite

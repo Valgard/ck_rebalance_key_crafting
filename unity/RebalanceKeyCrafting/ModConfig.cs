@@ -7,7 +7,7 @@ namespace RebalanceKeyCrafting
     /// Mod configuration adapter. The four player-facing knobs — `enabled`,
     /// `reductionFactor`, `minPerIngredient`, `scope` — are now live in-game settings,
     /// read from Mod Settings Menu `SettingHandle`s (bound once in
-    /// RebalanceKeyCraftingMod.Init via Bind). The getters stay source-compatible with the
+    /// RebalanceKeyCraftingMod.EarlyInit via Bind). The getters stay source-compatible with the
     /// former fields, so the patch (KeyRecipeCostPatch) reads ModConfig.Instance.* unchanged.
     /// The RoslynCSharp sandbox blocks System.IO; the framework persists the values via
     /// CoreLib, so the mod's own code still touches no file API. ObjectID lives in the global
@@ -46,9 +46,10 @@ namespace RebalanceKeyCrafting
         private static ModConfig _instance;
         public static ModConfig Instance => _instance ??= new ModConfig();
 
-        // Live handles set once by RebalanceKeyCraftingMod.Init via Bind(); null only in the brief
-        // pre-Bind window at mod load -> the hardcoded defaults below apply (Bind runs before the
-        // first PostConvert bake, and the framework is a hard dependency, never absent).
+        // Live handles set once by RebalanceKeyCraftingMod.EarlyInit via Bind(); null only in the brief
+        // pre-Bind window at mod load -> the hardcoded defaults below apply. Bind runs in EarlyInit, which
+        // Core Keeper calls BEFORE the world/database conversion (PugDatabasePostConverter.PostConvert),
+        // so the first bake already sees the persisted values; the framework is a hard dependency, never absent.
         private SettingHandle<bool> _enabledHandle;
         private SettingHandle<Reduction> _reductionHandle;
         private SettingHandle<Scope> _scopeHandle;

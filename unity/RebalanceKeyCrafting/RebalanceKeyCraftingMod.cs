@@ -13,15 +13,16 @@ namespace RebalanceKeyCrafting
     /// </summary>
     public sealed class RebalanceKeyCraftingMod : IMod
     {
-        public void EarlyInit() { }
-
-        public void Init()
+        public void EarlyInit()
         {
-            // Register the key-crafting settings; ModConfig reads these live handles (the next bake
-            // uses the current values — see the bake-time note in ModConfig). Section uses the default
-            // AsDeclared sort, so builder-call order IS render order: enabled, cost, scope.
-            // Every knob here is bake-time (idempotent PostConvert), so each is marked RequiresRestart:
-            // changing one and leaving the Mod Settings menu raises CK's "restart to apply" prompt.
+            // Register + bind the key-crafting settings in EARLYINIT, not Init. The recipe rewrite runs
+            // in PugDatabasePostConverter.PostConvert during Core Keeper's world/database conversion,
+            // which the game performs AFTER EarlyInit but BEFORE Init. Binding here means the
+            // SettingHandles already hold the persisted config values by the time the bake reads them
+            // (ModConfig's getters read the live handle). Section uses the default AsDeclared sort, so
+            // builder-call order IS render order: enabled, cost, scope. Every knob is bake-time
+            // (idempotent PostConvert), so each is marked RequiresRestart: changing one and leaving the
+            // Mod Settings menu raises CK's "restart to apply" prompt — the next launch's bake reads it.
             ModSettings.Section(this)
                 .Hint("Cheaper key crafting - how cheap, and which keys. Changes apply on restart.")
                 .Toggle(out var en, "enabled", true).RequiresRestart()
@@ -36,10 +37,12 @@ namespace RebalanceKeyCrafting
             var c = ModConfig.Instance;
             c.Bind(en, reduction, scope);
             Debug.Log(
-                $"[RebalanceKeyCrafting] Mod initialized. enabled={c.enabled}, " +
+                $"[RebalanceKeyCrafting] Settings bound in EarlyInit. enabled={c.enabled}, " +
                 $"reductionFactor={c.reductionFactor}, minPerIngredient={c.minPerIngredient}, " +
                 $"scope={c.scope}");
         }
+
+        public void Init() { }
 
         public void ModObjectLoaded(Object obj) { }
         public void Shutdown() { }
