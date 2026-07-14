@@ -15,4 +15,6 @@ MonoBehaviour:
   modId: 6173785
   modSettings: {fileID: 11400000, guid: 84df4073747747d1a35476e3622428ca, type: 2}
   logo: {fileID: 0}
-  summary: 
+  summary: Reduces the material cost of crafting keys. Defaults to the seven tier
+    chest keys (Copper..Relucite) at 25% of vanilla cost; switchable to all craftable
+    keys.

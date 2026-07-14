@@ -3,6 +3,16 @@
 All notable changes to this mod are documented here. The publish pipeline
 reads the topmost `## [x.y.z]` entry as the version to publish.
 
+## [1.1.1] - 2026-07-14
+
+### Fixed
+- The in-game crafting-cost setting (including **1 ingot**) was ignored at
+  database bake time and silently fell back to the 1/4 default, so only the
+  cheapest key (`CopperKey`) reached 1 ingredient while the higher tier keys
+  stayed at 2+. The settings are now bound in `EarlyInit` (before the recipe
+  bake in `PostConvert`) instead of `Init` (after it), so the chosen cost
+  applies to all affected keys. Takes effect on the next game restart.
+
 ## [1.1.0]
 
 - **In-game settings** under Options -> Mod Settings (via the Mod Settings Menu
