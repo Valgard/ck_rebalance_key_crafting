@@ -10,7 +10,7 @@ rewriting their recipe ingredient amounts at database bake time. By default it
 affects the seven tier chest keys (`CopperKey`..`ReluciteKey`) at 25% of
 vanilla cost (floor 1 per ingredient). One Harmony prefix against Pugstorm's
 `CoreKeeperModSDK`. No content of its own; hard-depends on CoreLib + Mod Settings
-Menu, which drive the four knobs as live in-game settings. Personal-use,
+Menu, which drive the three knobs as live in-game settings. Personal-use,
 non-commercial (Pugstorm EULA).
 
 The parent `../CLAUDE.md` holds the mod-agnostic SDK/CrossOver guidance shared
@@ -144,8 +144,8 @@ or `ModBuilder.BuildMod` emits `files: []`. Keeping `Library/Artifacts` and
 ## macOS / CrossOver
 
 Deployed through the fake-mod.io workaround (see parent `../CLAUDE.md`). This
-mod's fake mod.io ID is **`9999992`** (siblings use 9999993..9999999; they must
-differ). Do not open the in-game Mods menu while a fake-ID install is active;
+mod's fake mod.io ID is **`9999992`** (siblings use the other IDs in the
+`9999991`..`9999999` block; they must differ). Do not open the in-game Mods menu while a fake-ID install is active;
 re-run `../utils/build.sh` to restore if the cache is wiped.
 
 ## Publishing to mod.io

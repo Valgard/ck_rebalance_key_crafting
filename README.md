@@ -18,15 +18,15 @@ Personal-use, non-commercial (Pugstorm EULA).
 
 ## Configuration
 
-There is no runtime config file (the mod sandbox blocks file I/O), so the two
-knobs live in `unity/RebalanceKeyCrafting/ModConfig.cs` and take effect on the
-next build:
+Open **Options → Mod Settings** in-game to configure the mod; the Mod Settings
+Menu framework persists your choices. Changes apply on the next game restart —
+the menu offers to restart for you.
 
-| Field | Default | Meaning |
-|-------|---------|---------|
-| `reductionFactor` | `0.25f` | Each ingredient amount is multiplied by this (must be `< 1` to reduce). |
-| `minPerIngredient` | `1` | Floor applied after scaling, so crafting never becomes free. |
-| `scope` | `TierKeysOnly` | `TierKeysOnly` = the 7 tier chest keys; `AllCraftableKeys` = every craftable key. |
+| Setting | Default | Meaning |
+|---------|---------|---------|
+| Enabled | On | Master toggle; when off, keys cost their vanilla amount. |
+| Crafting cost | 1/4 | How cheap each key is — **1 ingot**, **1/4**, **1/2**, or **vanilla** (no reduction). A floor of 1 per ingredient always applies, so crafting never becomes free. |
+| Affected keys | Tier keys | **Tier keys** (the 7 chest keys) or **all craftable keys**. |
 
 ## How it works
 
