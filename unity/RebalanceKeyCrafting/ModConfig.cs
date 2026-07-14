@@ -4,10 +4,11 @@ using ModSettingsMenu.Settings;
 namespace RebalanceKeyCrafting
 {
     /// <summary>
-    /// Mod configuration adapter. The four player-facing knobs — `enabled`,
-    /// `reductionFactor`, `minPerIngredient`, `scope` — are now live in-game settings,
-    /// read from Mod Settings Menu `SettingHandle`s (bound once in
-    /// RebalanceKeyCraftingMod.EarlyInit via Bind). The getters stay source-compatible with the
+    /// Mod configuration adapter. Three player-facing knobs — `enabled`,
+    /// `reductionFactor`, `scope` — are now live in-game settings, read from Mod
+    /// Settings Menu `SettingHandle`s (bound once in RebalanceKeyCraftingMod.EarlyInit
+    /// via Bind); `minPerIngredient` is a hardcoded floor of 1, no longer a menu
+    /// setting. The getters stay source-compatible with the
     /// former fields, so the patch (KeyRecipeCostPatch) reads ModConfig.Instance.* unchanged.
     /// The RoslynCSharp sandbox blocks System.IO; the framework persists the values via
     /// CoreLib, so the mod's own code still touches no file API. ObjectID lives in the global
