@@ -23,29 +23,37 @@ namespace RebalanceKeyCrafting
             // builder-call order IS render order: enabled, cost, scope. Every knob is bake-time
             // (idempotent PostConvert), so each is marked RequiresRestart: changing one and leaving the
             // Mod Settings menu raises CK's "restart to apply" prompt — the next launch's bake reads it.
-            ModSettings.Section(this)
+            ModSettings
+                .Section(this)
                 .Hint("Cheaper key crafting - how cheap, and which keys. Changes apply on restart.")
-                .Toggle(out var en, "enabled", true).RequiresRestart()
-                .Choice(out var reduction, "reductionFactor",
+                .Toggle(out var en, "enabled", true)
+                .RequiresRestart()
+                .Choice(
+                    out var reduction,
+                    "reductionFactor",
                     new[] { ModConfig.Reduction.OneIngot, ModConfig.Reduction.Quarter, ModConfig.Reduction.Half, ModConfig.Reduction.Vanilla },
-                    ModConfig.Reduction.Quarter).RequiresRestart()
-                .Choice(out var scope, "scope",
-                    new[] { ModConfig.Scope.TierKeysOnly, ModConfig.Scope.AllCraftableKeys },
-                    ModConfig.Scope.TierKeysOnly).RequiresRestart()
+                    ModConfig.Reduction.Quarter
+                )
+                .RequiresRestart()
+                .Choice(out var scope, "scope", new[] { ModConfig.Scope.TierKeysOnly, ModConfig.Scope.AllCraftableKeys }, ModConfig.Scope.TierKeysOnly)
+                .RequiresRestart()
                 .Build();
 
             var c = ModConfig.Instance;
             c.Bind(en, reduction, scope);
             Debug.Log(
-                $"[RebalanceKeyCrafting] Settings bound in EarlyInit. enabled={c.enabled}, " +
-                $"reductionFactor={c.reductionFactor}, minPerIngredient={c.minPerIngredient}, " +
-                $"scope={c.scope}");
+                $"[RebalanceKeyCrafting] Settings bound in EarlyInit. enabled={c.enabled}, "
+                    + $"reductionFactor={c.reductionFactor}, minPerIngredient={c.minPerIngredient}, "
+                    + $"scope={c.scope}"
+            );
         }
 
         public void Init() { }
 
         public void ModObjectLoaded(Object obj) { }
+
         public void Shutdown() { }
+
         public void Update() { }
     }
 }

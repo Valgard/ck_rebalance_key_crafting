@@ -26,6 +26,7 @@ namespace RebalanceKeyCrafting
         {
             /// <summary>Only the seven tier chest keys (Copper..Relucite).</summary>
             TierKeysOnly,
+
             /// <summary>Any object whose id name ends in "Key" with a non-empty recipe.</summary>
             AllCraftableKeys,
         }
@@ -36,10 +37,13 @@ namespace RebalanceKeyCrafting
         {
             /// <summary>Every ingredient reduced to 1 (factor 0, floored to minPerIngredient = 1).</summary>
             OneIngot,
+
             /// <summary>A quarter of vanilla cost (factor 0.25). Default.</summary>
             Quarter,
+
             /// <summary>Half of vanilla cost (factor 0.5).</summary>
             Half,
+
             /// <summary>No reduction (factor 1, vanilla cost).</summary>
             Vanilla,
         }
@@ -55,8 +59,7 @@ namespace RebalanceKeyCrafting
         private SettingHandle<Reduction> _reductionHandle;
         private SettingHandle<Scope> _scopeHandle;
 
-        public void Bind(SettingHandle<bool> enabled, SettingHandle<Reduction> reduction,
-            SettingHandle<Scope> scope)
+        public void Bind(SettingHandle<bool> enabled, SettingHandle<Reduction> reduction, SettingHandle<Scope> scope)
         {
             _enabledHandle = enabled;
             _reductionHandle = reduction;
@@ -75,10 +78,14 @@ namespace RebalanceKeyCrafting
             {
                 switch (_reductionHandle != null ? _reductionHandle.Value : Reduction.Quarter)
                 {
-                    case Reduction.OneIngot: return 0f;
-                    case Reduction.Half:    return 0.5f;
-                    case Reduction.Vanilla: return 1f;
-                    default:                return 0.25f; // Quarter
+                    case Reduction.OneIngot:
+                        return 0f;
+                    case Reduction.Half:
+                        return 0.5f;
+                    case Reduction.Vanilla:
+                        return 1f;
+                    default:
+                        return 0.25f; // Quarter
                 }
             }
         }

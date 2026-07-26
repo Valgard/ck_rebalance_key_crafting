@@ -32,34 +32,40 @@ namespace RebalanceKeyCrafting
         private static bool Prefix(GameObject authoring)
         {
             var config = ModConfig.Instance;
-            if (!config.enabled) return true;
-            if (authoring == null) return true;
-            if (!authoring.TryGetComponent<PugDatabaseAuthoring>(out var dbAuthoring)) return true;
+            if (!config.enabled)
+                return true;
+            if (authoring == null)
+                return true;
+            if (!authoring.TryGetComponent<PugDatabaseAuthoring>(out var dbAuthoring))
+                return true;
 
             int recipesChanged = 0;
             foreach (var prefabData in DatabaseConversionUtility.GetPrefabList(dbAuthoring))
             {
                 var info = prefabData.ObjectInfo;
-                if (info == null) continue;
-                if (info.requiredObjectsToCraft == null || info.requiredObjectsToCraft.Count == 0) continue;
-                if (!IsTargetKey(config, info)) continue;
-                if (!_processed.Add(info)) continue; // already reduced this instance
+                if (info == null)
+                    continue;
+                if (info.requiredObjectsToCraft == null || info.requiredObjectsToCraft.Count == 0)
+                    continue;
+                if (!IsTargetKey(config, info))
+                    continue;
+                if (!_processed.Add(info))
+                    continue; // already reduced this instance
 
                 for (int i = 0; i < info.requiredObjectsToCraft.Count; i++)
                 {
                     var ingredient = info.requiredObjectsToCraft[i]; // CraftingObject (class) — left unnamed on purpose
                     int reduced = Math.Max(
                         config.minPerIngredient,
-                        (int)Math.Round(ingredient.amount * (double)config.reductionFactor,
-                                        MidpointRounding.AwayFromZero));
+                        (int)Math.Round(ingredient.amount * (double)config.reductionFactor, MidpointRounding.AwayFromZero)
+                    );
                     ingredient.amount = reduced;
                 }
                 recipesChanged++;
             }
 
             if (recipesChanged > 0)
-                Debug.Log($"[RebalanceKeyCrafting] Reduced {recipesChanged} key recipe(s) " +
-                          $"(scope={config.scope}, factor={config.reductionFactor}).");
+                Debug.Log($"[RebalanceKeyCrafting] Reduced {recipesChanged} key recipe(s) " + $"(scope={config.scope}, factor={config.reductionFactor}).");
             return true; // always run the vanilla bake
         }
 
