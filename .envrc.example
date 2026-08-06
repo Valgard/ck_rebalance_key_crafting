@@ -46,7 +46,7 @@ export MOD_REPO_ROOT="$PWD"
 # CLIPublishHelper, so a value dropped here is removed on mod.io. Valid:
 # Visual, Audio, Item, NPC, Quality of Life, Overhaul, Language, World,
 # Library, Other.
-export CK_MODIO_TYPE="Item|Quality of Life"
+export CK_MODIO_TYPE="Item|Overhaul|Quality of Life"
 
 # --- Localisation (read by utils/CLIBuildHelper.cs -> LocalizationGenerator.GenerateFromEnv) ---
 # LOC_TABLE (the shared CK language-address table) is inherited from the parent core_keeper/.envrc.
