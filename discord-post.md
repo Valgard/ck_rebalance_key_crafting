@@ -13,7 +13,7 @@ Solarite, Relucite.
 
 ## Settings
 
-**Options → Mod Settings** — cost (1 ingot, ¼, ½ or vanilla), whether it applies
+**Options → Mod settings** — cost (1 ingot, ¼, ½ or vanilla), whether it applies
 to tier keys only or every craftable key, and an on/off switch. Changes need a
 restart; the menu offers to do it for you.
 

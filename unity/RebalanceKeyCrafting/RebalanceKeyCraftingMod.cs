@@ -22,7 +22,7 @@ namespace RebalanceKeyCrafting
             // (ModConfig's getters read the live handle). Section uses the default AsDeclared sort, so
             // builder-call order IS render order: enabled, cost, scope. Every knob is bake-time
             // (idempotent PostConvert), so each is marked RequiresRestart: changing one and leaving the
-            // Mod Settings menu raises CK's "restart to apply" prompt — the next launch's bake reads it.
+            // Mod settings menu raises CK's "restart to apply" prompt — the next launch's bake reads it.
             ModSettings
                 .Section(this)
                 .Hint("Cheaper key crafting - how cheap, and which keys. Changes apply on restart.")

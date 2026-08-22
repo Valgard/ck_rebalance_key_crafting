@@ -18,7 +18,7 @@ Personal-use, non-commercial (Pugstorm EULA).
 
 ## Configuration
 
-Open **Options → Mod Settings** in-game to configure the mod; the Mod Settings
+Open **Options → Mod settings** in-game to configure the mod; the Mod Settings
 Menu framework persists your choices. Changes apply on the next game restart —
 the menu offers to restart for you.
 
