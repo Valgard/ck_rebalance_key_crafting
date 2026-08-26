@@ -1,0 +1,26 @@
+[h1]Rebalance Key Crafting[/h1]
+
+Chest keys in Core Keeper are single-use — one key per locked chest — so crafting them again and again quietly burns through your bars. This mod cuts that cost down to something far more reasonable: by default, every tier chest key costs just a quarter of its vanilla materials to craft.
+
+The keys themselves are untouched. Same keys, same chests, same loot — they are simply cheaper to make, so opening that next vault doesn't mean another trip to the smelter.
+
+[b]Purely a cost tweak.[/b] Keys, chests, drop rates and everything else behave exactly like vanilla. The workbench shows the reduced cost, and that is exactly what gets consumed — no mismatch between what you see and what you pay.
+
+[b]Multiplayer:[/b] install the mod on both the client and the server.
+
+[h2]Settings[/h2]
+
+Open Options → Mod settings in-game to choose the crafting cost (1 ingot, 1/4, 1/2 or vanilla), which keys are affected (the seven tier keys — Copper, Iron, Scarlet, Octarine, Galaxite, Solarite, Relucite — or all craftable keys), and to toggle the mod on or off. [b]Changes apply on the next game restart[/b], not immediately — the menu offers to restart for you.
+
+[h2]Requirements[/h2]
+
+[list]
+[*] Mod Settings Menu (required) — hosts the in-game settings screen
+[*] CoreLib (required) — a dependency of Mod Settings Menu
+[/list]
+
+Steam does not prompt for required items the way mod.io does — subscribe to Mod Settings Menu and CoreLib as well, or the mod will not load.
+
+[hr][/hr]
+
+Built with the official Pugstorm Core Keeper Mod SDK. Personal-use, non-commercial (Core Keeper EULA). Not affiliated with or endorsed by Pugstorm.
