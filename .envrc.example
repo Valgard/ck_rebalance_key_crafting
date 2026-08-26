@@ -35,9 +35,6 @@ export MOD_SUMMARY="Reduces the material cost of crafting keys. Defaults to the 
 # Fake mod.io ID — must be DISTINCT per mod (siblings use 9999993–9999999).
 export FAKE_MOD_ID="9999992"
 
-# ModBuilder output staging dir (build.sh → install-macos.sh copies onward).
-export MOD_INSTALL_PATH="$MOD_INSTALL_BASE_PATH/$MOD_NAME_ID-build"
-
 # Repo root, read by the shared CLIPublishHelper to locate CHANGELOG.md.
 export MOD_REPO_ROOT="$PWD"
 
