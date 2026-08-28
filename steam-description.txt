@@ -12,15 +12,6 @@ The keys themselves are untouched. Same keys, same chests, same loot — they ar
 
 Open Options → Mod settings in-game to choose the crafting cost (1 ingot, 1/4, 1/2 or vanilla), which keys are affected (the seven tier keys — Copper, Iron, Scarlet, Octarine, Galaxite, Solarite, Relucite — or all craftable keys), and to toggle the mod on or off. [b]Changes apply on the next game restart[/b], not immediately — the menu offers to restart for you.
 
-[h2]Requirements[/h2]
-
-[list]
-[*] Mod Settings Menu (required) — hosts the in-game settings screen
-[*] CoreLib (required) — a dependency of Mod Settings Menu
-[/list]
-
-Steam does not prompt for required items the way mod.io does — subscribe to Mod Settings Menu and CoreLib as well, or the mod will not load.
-
 [hr][/hr]
 
 Built with the official Pugstorm Core Keeper Mod SDK. Personal-use, non-commercial (Core Keeper EULA). Not affiliated with or endorsed by Pugstorm.
