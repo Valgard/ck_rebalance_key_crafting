@@ -146,10 +146,11 @@ or `ModBuilder.BuildMod` emits `files: []`. Keeping `Library/Artifacts` and
 ## macOS / CrossOver
 
 Deployed through the fake-mod.io workaround (see parent `../CLAUDE.md`). This
-mod's fake mod.io ID is **`9999992`** (siblings use the other IDs in the
-`9999991`..`9999999` block; they must differ). Do not open the in-game Mods menu
-while a fake-ID install is active; re-run `../utils/build.sh` to restore if the
-cache is wiped.
+mod's fake mod.io ID is **`9999992`**; the siblings must differ, and the IDs
+already taken are the `FAKE_MOD_ID` lines in the sibling `*/.envrc.example`
+files — the same source `../utils/new_mod.py` reads to allocate the next. Do not
+open the in-game Mods menu while a fake-ID install is active; re-run
+`../utils/build.sh` to restore if the cache is wiped.
 
 ## Publishing to mod.io
 
