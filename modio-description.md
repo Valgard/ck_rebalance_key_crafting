@@ -12,10 +12,17 @@ trip to the smelter.
 
 ## What it does
 
-- Crafting any tier chest key — **Copper, Iron, Scarlet, Octarine, Galaxite, Solarite, Relucite** — now costs ~25% of the vanilla materials (minimum 1 of each ingredient).
-- The workbench shows the reduced cost, and that is exactly what gets consumed — no mismatch between what you see and what you pay.
-- Purely a cost tweak: keys, chests, drop rates and everything else behave exactly like vanilla.
-- Configurable in-game: open **Options → Mod settings** to choose the crafting cost (1 ingot, 1/4, 1/2 or vanilla), which keys are affected (tier keys or all craftable keys), and to toggle the mod. Changes apply on the next game restart — the menu offers to restart for you.
+- Crafting any tier chest key — **Copper, Iron, Scarlet, Octarine, Galaxite,
+  Solarite, Relucite** — now costs ~25% of the vanilla materials (minimum 1 of
+  each ingredient).
+- The workbench shows the reduced cost, and that is exactly what gets consumed —
+  no mismatch between what you see and what you pay.
+- Purely a cost tweak: keys, chests, drop rates and everything else behave
+  exactly like vanilla.
+- Configurable in-game: open **Options → Mod settings** to choose the crafting
+  cost (1 ingot, 1/4, 1/2 or vanilla), which keys are affected (tier keys or all
+  craftable keys), and to toggle the mod. Changes apply on the next game restart
+  — the menu offers to restart for you.
 
 ## Requirements
 

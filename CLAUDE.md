@@ -63,21 +63,23 @@ editor helpers symlinked in from `../utils/`:
   vanilla bakes the recipe into the immutable runtime blob. Always returns
   `true` (lets vanilla run).
 - **`ModConfig`** — the settings adapter. `enabled` (Toggle, default on),
-  `reductionFactor` (Choice of a `Reduction` enum: `OneIngot` → factor 0, `Quarter`
-  → 0.25 [default], `Half` → 0.5, `Vanilla` → 1) and `scope` (Choice
+  `reductionFactor` (Choice of a `Reduction` enum: `OneIngot` → factor 0,
+  `Quarter` → 0.25 [default], `Half` → 0.5, `Vanilla` → 1) and `scope` (Choice
   `TierKeysOnly` / `AllCraftableKeys`) read from bound `SettingHandle`s
-  (`ModConfig.Bind`); the getters are source-compatible with the former fields, so
-  `KeyRecipeCostPatch` reads `ModConfig.Instance.*` unchanged. `minPerIngredient` is
-  **no longer a menu setting** — it is hardcoded to `1` (the floor that makes the
-  `OneIngot` choice resolve to exactly 1 per ingredient, not 0/free). `tierKeyIds`
-  (the 7 tier keys) stays a hardcoded data list. The framework persists the values (via CoreLib) to
+  (`ModConfig.Bind`); the getters are source-compatible with the former fields,
+  so `KeyRecipeCostPatch` reads `ModConfig.Instance.*` unchanged.
+  `minPerIngredient` is **no longer a menu setting** — it is hardcoded to `1`
+  (the floor that makes the `OneIngot` choice resolve to exactly 1 per
+  ingredient, not 0/free). `tierKeyIds` (the 7 tier keys) stays a hardcoded data
+  list. The framework persists the values (via CoreLib) to
   `mods/RebalanceKeyCrafting/config.cfg`; the mod's own code still touches no
   `System.IO`. **Bake-time caveat:** the recipe rewrite runs once per world in
-  `PostConvert` (which fires after `EarlyInit`, before `Init` — hence the `EarlyInit`
-  binding above) and is idempotent, so the getters feed that bake — a setting change
-  takes effect on the **next game restart**, not mid-session (the section hint says
-  so). Labels/hint/option strings live in `localization/localization.yaml`
-  (EN/DE), generated into TextDataBlock assets at build.
+  `PostConvert` (which fires after `EarlyInit`, before `Init` — hence the
+  `EarlyInit` binding above) and is idempotent, so the getters feed that bake —
+  a setting change takes effect on the **next game restart**, not mid-session
+  (the section hint says so). Labels/hint/option strings live in
+  `localization/localization.yaml` (EN/DE), generated into TextDataBlock assets
+  at build.
 
 ### Why bake-time recipe rewrite
 
@@ -145,8 +147,9 @@ or `ModBuilder.BuildMod` emits `files: []`. Keeping `Library/Artifacts` and
 
 Deployed through the fake-mod.io workaround (see parent `../CLAUDE.md`). This
 mod's fake mod.io ID is **`9999992`** (siblings use the other IDs in the
-`9999991`..`9999999` block; they must differ). Do not open the in-game Mods menu while a fake-ID install is active;
-re-run `../utils/build.sh` to restore if the cache is wiped.
+`9999991`..`9999999` block; they must differ). Do not open the in-game Mods menu
+while a fake-ID install is active; re-run `../utils/build.sh` to restore if the
+cache is wiped.
 
 ## Publishing to mod.io
 
