@@ -36,13 +36,26 @@ namespace RebalanceKeyCrafting
                 return true;
             if (authoring == null)
                 return true;
-            if (!authoring.TryGetComponent<PugDatabaseAuthoring>(out var dbAuthoring))
+            if (!authoring.TryGetComponent<PugDatabaseAuthoring>(out _))
+                return true;
+
+            // 1.3 removed DatabaseConversionUtility and emptied PugDatabaseAuthoring, which now
+            // only marks the object. Vanilla's own PostConvert reads the prefabs from
+            // ScriptableData instead (Pug.Other:3513), so this walks the same source it does.
+            var blocks = ScriptableData.GetDataBlocks<EntityAuthoringDataBlock>();
+            if (blocks == null)
                 return true;
 
             int recipesChanged = 0;
-            foreach (var prefabData in DatabaseConversionUtility.GetPrefabList(dbAuthoring))
+            foreach (var block in blocks)
             {
-                var info = prefabData.ObjectInfo;
+                var prefab = block.prefab;
+                if (prefab == null)
+                    continue;
+                var entityData = prefab.GetComponent<IEntityMonoBehaviourData>();
+                if (entityData == null)
+                    continue;
+                var info = entityData.ObjectInfo;
                 if (info == null)
                     continue;
                 if (info.requiredObjectsToCraft == null || info.requiredObjectsToCraft.Count == 0)

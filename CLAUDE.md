@@ -56,8 +56,10 @@ editor helpers symlinked in from `../utils/`:
   falling back to the hardcoded defaults (the original bug: cost stuck at the `Quarter`
   default, `enabled` off ignored). **No `BurstDisabler`** — the patch target is managed.
 - **`KeyRecipeCostPatch` (`[HarmonyPatch]`)** — a `Prefix` on
-  `PugDatabasePostConverter.PostConvert`. Walks the prefab list
-  (`DatabaseConversionUtility.GetPrefabList`), selects target keys, and scales
+  `PugDatabasePostConverter.PostConvert`. Walks the data blocks
+  (`ScriptableData.GetDataBlocks<EntityAuthoringDataBlock>()` — game 1.3 removed
+  `DatabaseConversionUtility` and this is the source vanilla itself reads now),
+  reads each prefab's `ObjectInfo` off it, selects target keys, and scales
   each `ObjectInfo.requiredObjectsToCraft` amount by `reductionFactor`
   (`max(minPerIngredient, round(amount * factor, AwayFromZero))`) **before**
   vanilla bakes the recipe into the immutable runtime blob. Always returns
@@ -88,7 +90,7 @@ the mutable `ObjectInfo.requiredObjectsToCraft` list into an immutable
 `BlobArray<ObjectWithAmount>`:
 
 ```
-Pug.Other.decompiled.cs:3547
+Pug.Other.decompiled.cs:3591
 blobBuilderArray2[j].amount = objectInfo2.requiredObjectsToCraft[j].amount;
 ```
 
