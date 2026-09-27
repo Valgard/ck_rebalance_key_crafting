@@ -3,6 +3,15 @@
 All notable changes to this mod are documented here. The publish pipeline
 reads the topmost `## [x.y.z]` entry as the version to publish.
 
+## [1.2.0]
+
+Works with Core Keeper 1.3. The update had stopped the mod from loading at all,
+so every key cost its full vanilla price again.
+
+### Changed
+- **Requires Core Keeper 1.3.** This version does not run on 1.2 any more; stay
+  on 1.1.1 for a 1.2 game.
+
 ## [1.1.1] - 2026-07-14
 
 ### Fixed
