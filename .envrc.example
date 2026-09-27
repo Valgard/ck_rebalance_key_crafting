@@ -2,10 +2,10 @@
 # Rebalance Key Crafting — environment variables (TEMPLATE)
 #
 # Copy this file to `.envrc` (gitignored). Machine-level shared values
-# (UNITY_BIN, SDK_PATH, CK_GAME_VERSION, MOD_INSTALL_BASE_PATH, MODIO_DEPS_MAP,
-# LOC_TABLE, the ilspycmd PATH entry) are inherited from the parent
-# core_keeper/.envrc — define them once there (copy core_keeper/.envrc.example
-# → core_keeper/.envrc), not here.
+# (UNITY_BIN, SDK_PATH, MOD_INSTALL_BASE_PATH, MODIO_DEPS_MAP, LOC_TABLE, the
+# ilspycmd PATH entry) are inherited from the parent core_keeper/.envrc — define
+# them once there (copy core_keeper/.envrc.example → core_keeper/.envrc), not
+# here. CK_GAME_VERSION is the exception: this mod states its own, see below.
 #
 #   cp .envrc.example .envrc
 #   direnv allow                     # then `cd` triggers the chain
@@ -38,6 +38,14 @@ else
     done
     unset _up
 fi
+
+# --- Game versions (overrides the parent's list) -----------------------------
+# Since 1.2.0 this mod runs on Core Keeper 1.3 only: it reads the prefab list
+# through EntityAuthoringDataBlock, which 1.2 does not have, so the load-time
+# compile fails there. The inherited list still names 1.2 builds for the mods
+# that run on both, so this one states its own. Keep it to 1.3.x builds; it
+# becomes the mod.io Game Version tag(s) and the Discord post's version line.
+export CK_GAME_VERSION="1.3.0.2 1.3.0.1"
 
 # --- Mod identity (project-inherent — leave as-is) --------------------------
 
