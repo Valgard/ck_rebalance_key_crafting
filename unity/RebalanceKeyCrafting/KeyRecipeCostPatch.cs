@@ -23,6 +23,10 @@ namespace RebalanceKeyCrafting
         // ObjectInfo's recipe is reduced exactly once, ever.
         private static readonly HashSet<ObjectInfo> _processed = new HashSet<ObjectInfo>();
 
+        // Later bakes legitimately change nothing (see _processed), so only the first bake that
+        // sees any data blocks can tell "already done" from "matched nothing".
+        private static bool _firstBakeChecked;
+
         static KeyRecipeCostPatch()
         {
             Debug.Log("[RebalanceKeyCrafting] KeyRecipeCostPatch loaded.");
@@ -41,9 +45,11 @@ namespace RebalanceKeyCrafting
 
             // 1.3 removed DatabaseConversionUtility and emptied PugDatabaseAuthoring, which now
             // only marks the object. Vanilla's own PostConvert reads the prefabs from
-            // ScriptableData instead (Pug.Other:3513), so this walks the same source it does.
+            // ScriptableData instead (Pug.Other:3513), so this reads the same list it does. Unlike
+            // vanilla it does not skip custom-scene prefabs: reducing one is harmless, since vanilla
+            // never bakes it, but it can raise the count in the log line below.
             var blocks = ScriptableData.GetDataBlocks<EntityAuthoringDataBlock>();
-            if (blocks == null)
+            if (blocks == null || blocks.Count == 0)
                 return true;
 
             int recipesChanged = 0;
@@ -79,6 +85,15 @@ namespace RebalanceKeyCrafting
 
             if (recipesChanged > 0)
                 Debug.Log($"[RebalanceKeyCrafting] Reduced {recipesChanged} key recipe(s) " + $"(scope={config.scope}, factor={config.reductionFactor}).");
+            if (!_firstBakeChecked)
+            {
+                _firstBakeChecked = true;
+                if (_processed.Count == 0)
+                    Debug.LogWarning(
+                        $"[RebalanceKeyCrafting] No key recipe matched among {blocks.Count} data blocks (scope={config.scope}) — "
+                            + "key costs stay vanilla. A game update may have moved recipes."
+                    );
+            }
             return true; // always run the vanilla bake
         }
 
