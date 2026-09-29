@@ -152,7 +152,8 @@ mod's fake mod.io ID is **`9999992`**; the siblings must differ, and the IDs
 already taken are the `FAKE_MOD_ID` lines in the sibling `*/.envrc.example`
 files — the same source `../utils/new_mod.py` reads to allocate the next. Do not
 open the in-game Mods menu while a fake-ID install is active; re-run
-`../utils/build.sh` to restore if the cache is wiped.
+`../utils/build.sh` after any visit to it, because merely opening it unregisters
+the install even though its files stay.
 
 ## Publishing to mod.io
 
