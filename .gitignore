@@ -6,6 +6,8 @@
 
 # Superpowers plan/brainstorm scratch — never committed (specs in docs/specs/ stay tracked)
 docs/superpowers/
+# Superpowers subagent-run workspace (ledger, briefs, reports) — never committed
+/.superpowers/
 
 # Editors / IDEs
 .idea/
